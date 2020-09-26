@@ -8,7 +8,7 @@ Created on Sat Sep 26 16:11:38 2020
 
 # the difference of pixels between the beginning and the final points x/y to be considered as a vertical/horizontal line
 # and between two points, to consider they are on the same position
-diff = 10
+# diff = 10
 
 def permute(tab, i, j):
     temp = tab[i]
@@ -17,7 +17,7 @@ def permute(tab, i, j):
     return tab
 
 
-def typeLine(xb, yb, xf, yf):
+def typeLine(xb, yb, xf, yf, diff):
     # input : the four coordinates of a line
     # output : 0 if the line is diagonal,
     #          1 if the line if horizontal, 
@@ -30,7 +30,7 @@ def typeLine(xb, yb, xf, yf):
         return 0
 
 
-def equalPt(x1, y1, x2, y2):
+def equalPt(x1, y1, x2, y2, diff):
     # input : two points A1 (x1, y1) and A2 (x2,y2)
     # output : A1 == A2
     isEqual = False
@@ -39,7 +39,7 @@ def equalPt(x1, y1, x2, y2):
     return isEqual
 
 
-def isBefore(point1, point2):
+def isBefore(point1, point2, diff):
     x1, y1 = point1
     x2, y2 = point2
     isBefore = False

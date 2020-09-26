@@ -11,44 +11,44 @@ import numpy as np
 
 from .points import *
 
-def equalLine(line1, line2):
+def equalLine(line1, line2, diff):
     # input : two lines line1 and line2
     # output : true if the line are the same (if they are closer than diff pixel from each other)
     xb1, yb1, xf1, yf1 = line1
     xb2, yb2, xf2, yf2 = line2
     lineEquals = False
-    if equalPt(xb1, yb1, xb2, yb2) and equalPt(xf1, yf1, xf2, yf2):
+    if equalPt(xb1, yb1, xb2, yb2, diff) and equalPt(xf1, yf1, xf2, yf2, diff):
         lineEquals = True
     return lineEquals
 
 
-def supprDuplicateLine(lines):
+def supprDuplicateLine(lines, diff):
     # input: a list of lines
     # ouput : the list of lines without the duplicates lines
     supprLine = []
     ind_lines = range(len(lines))
     for i in ind_lines:
         for j in ind_lines:
-            if i!=j and equalLine(lines[i], lines[j]):
+            if i!=j and equalLine(lines[i], lines[j], diff):
                 supprLine.append(min(i,j))
     return [lines[k] for k in np.setdiff1d(ind_lines, np.unique(supprLine))]
 
 
-def extractTypeLines(lines):
+def extractTypeLines(lines, diff):
     # input : all the lines of the picture
     # output : one list of horizontal lines, anohter of vertical lines
     horizontal = []
     vertical = []
     for line in lines:
         for(xb, yb, xf, yf) in line:
-            if typeLine(xb, yb, xf, yf) == 1:
+            if typeLine(xb, yb, xf, yf, diff) == 1:
                 horizontal.append((xb, yb, xf, yf))
-            if typeLine(xb, yb, xf, yf) == 2:
+            if typeLine(xb, yb, xf, yf, diff) == 2:
                 vertical.append((xb, yb, xf, yf))
-    return(supprDuplicateLine(horizontal), supprDuplicateLine(vertical))
+    return(supprDuplicateLine(horizontal, diff), supprDuplicateLine(vertical, diff))
 
 
-def crossLines(line1, line2):
+def crossLines(line1, line2, diff):
     # input : 2 lines, line1 horizontal and line2 vertical
     # output : True if the 2 lines crossed each other, False otherwise
     crossed = False
@@ -59,12 +59,12 @@ def crossLines(line1, line2):
     return crossed
 
 
-def crossMatrix(lines):
+def crossMatrix(lines, diff):
     # input : one list of lines
     # output: the "cross matrix", C[h,v] = 1 if h cross v, 0 otherwise, where h are horizontal and v vertical lines
     
     # first we extract the horizontal and the vertical lines
-    horizontal, vertical = extractTypeLines(lines)
+    horizontal, vertical = extractTypeLines(lines, diff)
     H = len(horizontal)
     V = len(vertical)
     
@@ -73,7 +73,7 @@ def crossMatrix(lines):
     
     for h in range(H):
         for v in range(V):
-            if crossLines(horizontal[h],vertical[v]):
+            if crossLines(horizontal[h],vertical[v], diff):
                 C[h,v] = 1
     
     # keep the lines which cross other lines
@@ -85,11 +85,11 @@ def crossMatrix(lines):
     return (C[:,vertKeep][horizKeep, :], horizontal, vertical)
 
 
-def findTables(lines):
+def findTables(lines, diff):
     
     listTables = []
     
-    C, horizontal, vertical = crossMatrix(lines)
+    C, horizontal, vertical = crossMatrix(lines, diff)
 
     G = nx.Graph()
 

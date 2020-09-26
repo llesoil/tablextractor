@@ -35,10 +35,12 @@ def sortLineTable(listTables):
 
 
 def getCenterOfTable(horiz, vert):
+    
     return (int((vert[0][0]+vert[len(vert)-1][0])/2), int((horiz[0][1]+horiz[len(horiz)-1][1])/2))
 
 
-def crossMatrix2(horiz, vert):
+def crossMatrix2(horiz, vert, diff):
+    
     H = len(horiz)
     V = len(vert)
     
@@ -46,15 +48,15 @@ def crossMatrix2(horiz, vert):
     
     for h in range(H):
         for v in range(V):
-            if crossLines(horiz[h],vert[v]):
+            if crossLines(horiz[h],vert[v], diff):
                 C[h,v] = 1
     
     return C
 
 
-def listPoints(horiz, vert):
+def listPoints(horiz, vert, diff):
     
-    C = crossMatrix2(horiz, vert)
+    C = crossMatrix2(horiz, vert, diff)
     listCol = []
     
     H = len(horiz)
@@ -86,4 +88,3 @@ def listPoints(horiz, vert):
                     indexV2+=1
             indexV1+=1
     return listCol
-
