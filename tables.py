@@ -6,7 +6,7 @@ Created on Sat Sep 26 16:13:15 2020
 @author: llesoil
 """
 
-from lines import *
+from .lines import *
 
 def sortTables(listTables):
 
