@@ -6,6 +6,7 @@ Created on Sat Sep 26 16:13:15 2020
 @author: llesoil
 """
 
+import cv2
 from lines import *
 
 def sortTables(listTables):
@@ -87,4 +88,28 @@ def listPoints(horiz, vert):
             indexV1+=1
     return listCol
 
+
+
+def findPoints(path):
+    
+    img = cv2.imread(path)
+    gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    edges = cv2.Canny(gray,50,150,apertureSize = 3)
+
+    lines = cv2.HoughLinesP(edges, rho = 1, theta = np.pi/180, threshold = 300, minLineLength = 100, maxLineGap = 5)
+    
+    listTables = sortLineTable(sortTables(findTables(lines)))
+    
+    listTablePts = []
+    
+    for i in range(len(listTables)):
+
+        horiz, vert = listTables[i]
+        print(vert[0])
+        
+        listTablePts.append(listPoints(horiz[0], vert))
+        
+    return listTablePts
+
+#findPoints("/home/llesoil/Downloads/print_weburl.png")
 
