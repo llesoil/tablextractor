@@ -9,7 +9,7 @@ Created on Sat Sep 26 16:11:39 2020
 import networkx as nx
 import numpy as np
 
-from points import *
+from .points import *
 
 def equalLine(line1, line2):
     # input : two lines line1 and line2
