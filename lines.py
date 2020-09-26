@@ -7,6 +7,9 @@ Created on Sat Sep 26 16:11:39 2020
 """
 
 import networkx as nx
+import numpy as np
+
+from points import *
 
 def equalLine(line1, line2):
     # input : two lines line1 and line2
@@ -102,8 +105,7 @@ def findTables(lines):
 
     G.add_nodes_from(list(labelH), bipartite=0)
     G.add_nodes_from(list(labelV), bipartite=1)
-
-    links = []
+    
     for h in range(H):
         for v in range(V):
             if C[h,v] == 1:
