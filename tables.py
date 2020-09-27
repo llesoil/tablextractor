@@ -113,11 +113,11 @@ def findTableLocations(path):
     return listTablePts
 
 
-def getYBorders(tables):
+def getYBorders(tab):
     
-    y_min, _ = tables[0][0][0]
+    y_min, _ = tab[0][0][0]
     
-    last_cell = tables[len(tables)-1]
+    last_cell = tab[len(tables)-1]
     
     y_max, _ = last_cell[len(last_cell)-1][2]
     
