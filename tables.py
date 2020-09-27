@@ -90,7 +90,8 @@ def listPoints(horiz, vert, diff):
             indexV1+=1
     return listCol
 
-def findIniPoints(path):
+
+def findTableLocations(path):
     
     img = cv2.imread(path)
     
@@ -110,3 +111,17 @@ def findIniPoints(path):
     listTablePts = [listPoints(horiz[0], vert, 20) for (horiz, vert) in listTables]
     
     return listTablePts
+
+
+def getYBorders(tables):
+    
+    y_min, _ = tables[0][0][0]
+    
+    last_cell = tables[len(tables)-1]
+    
+    y_max, _ = last_cell[len(last_cell)-1][2]
+    
+    return (y_min, y_max)
+
+
+  
