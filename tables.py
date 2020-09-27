@@ -91,7 +91,7 @@ def listPoints(horiz, vert, diff):
     return listCol
 
 
-def findTableLocations(path):
+def findTablePositions(path):
     
     img = cv2.imread(path)
     
