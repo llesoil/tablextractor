@@ -54,7 +54,7 @@ def getPermutations(centers):
     nbCenters = len(centers)
     for i in range(nbCenters-1, 0, -1):
         for j in range(0, i):
-            if isBefore(centers[j+1], centers[j]):
+            if isBefore(centers[j+1], centers[j], 1):
                 centers = permute(centers, j+1, j)
                 orderIni = permute(orderIni, j+1, j)
     return orderIni
