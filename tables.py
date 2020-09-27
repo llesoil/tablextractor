@@ -117,7 +117,7 @@ def getYBorders(tab):
     
     y_min, _ = tab[0][0][0]
     
-    last_cell = tab[len(tables)-1]
+    last_cell = tab[len(tab)-1]
     
     y_max, _ = last_cell[len(last_cell)-1][2]
     
